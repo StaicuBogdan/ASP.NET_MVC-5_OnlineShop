@@ -1,0 +1,35 @@
+﻿@model Proiect2.Models.Product
+
+<h2 class="text-primary">Editare produs cu id @Model.Id.@Model.Nume</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Products", routeValues: new { id = Model.Id}))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Label("Nume", "Nume produs")<br />
+    @Html.EditorFor(m => m.Nume)
+    @Html.ValidationMessageFor(m => m.Nume, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Descriere", "Descriere produs")<br />
+    @Html.EditorFor(m => m.Descriere)
+    @Html.ValidationMessageFor(m => m.Descriere, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Pret", "Pret Produs")<br />
+    @Html.EditorFor(m => m.Pret)
+    @Html.ValidationMessageFor(m => m.Pret, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Poza", "Poza produs")<br />
+    @Html.EditorFor(m => m.Poza)
+    @Html.ValidationMessageFor(m => m.Poza, "", new { @class = "text-danger" })
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"), "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Modifica produs</button>
+}

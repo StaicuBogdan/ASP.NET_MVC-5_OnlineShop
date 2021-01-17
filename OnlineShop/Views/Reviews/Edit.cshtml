@@ -1,0 +1,37 @@
+﻿@model Proiect2.Models.Review
+
+
+
+<h2>Editare review</h2>
+<form method="post" action="/Reviews/Edit/@Model.ReviewId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <label for="rating-1">
+        <input id="rating-1" class="form-check-input" type="radio" name="Rating" value="1">&ensp;1&ensp;
+    </label>
+    <label for="rating-2">
+        <input id="rating-2" class="form-check-input" type="radio" name="Rating" value="2">&ensp;2&ensp;
+    </label>
+    <label for="rating-3">
+        <input id="rating-3" class="form-check-input" type="radio" name="Rating" value="3">&ensp;3&ensp;
+    </label>
+    <label for="rating-4">
+        <input id="rating-4" class="form-check-input" type="radio" name="Rating" value="4">&ensp;4&ensp;
+    </label>
+    <label for="rating-5">
+        <input id="rating-5" class="form-check-input" type="radio" name="Rating" value="5" checked>&ensp;5&ensp;
+    </label>
+    @Html.ValidationMessage("Rating", "", new { @class = "text-danger" })
+    <br />
+    <label>
+        Continut review
+    </label>
+    <br />
+    <div style="width:100%;">
+        <textarea class="form-control" name="Content" style="box-sizing: border-box; max-width: 100%; min-height: 150px; ">@Model.Content</textarea>
+    </div>
+
+    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-success" type="submit"><i class="fa fa-edit"></i> Editeaza review</button>
+</form>
+

@@ -1,0 +1,90 @@
+﻿
+<div class="container-fluid">
+    <h2 class="text-primary">Cos de cumparaturi</h2>
+    <a class="btn btn-info" href="/Products/Index"><i class="fa fa-arrow-left"></i>  Inapoi la lista de produse</a>
+    <br /><br />
+
+    <div class="row">
+        <div class="col-md-8">
+            @foreach (var q in ViewBag.Quantities)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color:white;">
+                        <h4 class="text-primary pull-left">@q.Product.Nume</h4>
+                        <form method="post" action="/Quantities/Delete/@q.QuantityId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-danger pull-right" type="submit"><i class="fa fa-trash"></i>&ensp;Remove</button>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-responsive" src="@q.Product.Poza" alt="poza produsului" />
+                            </div>
+                            <div class="col-md-5">
+                                <p style="height:120px; overflow:hidden;">@q.Product.Descriere</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-3">
+                                        <form method="post" action="/Quantities/EditMinus/@q.QuantityId">
+                                            @Html.HttpMethodOverride(HttpVerbs.Put)
+                                            <button class="btn btn-info" type="submit"><i class="fa fa-minus"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h4><b>@q.Cantitate</b></h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <form method="post" action="/Quantities/EditPlus/@q.QuantityId">
+                                            @Html.HttpMethodOverride(HttpVerbs.Put)
+                                            <button class="btn btn-info" type="submit"><i class="fa fa-plus"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <h4 class="text-center">
+                                    
+                                    Pret:<i class="fa fa-dollar"> @q.Product.Pret</i>
+                                </h4>
+                            </div>
+                        </div>
+                        <p>Produs vandut de : <strong>@q.Product.User.UserName</strong></p>
+                    </div>
+                </div>                                                                 
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="text-center text-success">Salut, @ViewBag.UserCurent.UserName</h4>
+                </div>
+                <div class="panel-body">
+                    
+                    <img class="img-responsive" src="https://cdn.iconscout.com/icon/free/png-512/avatar-372-456324.png" style="height:200px; margin:auto;" alt="poza_utilizator" />
+                    <hr />
+
+                    
+
+                    <div class="text-center">
+                        <h4>Total: @ViewBag.Suma</h4>
+                        <br />
+                        <button class="btn btn-success">Trimite Comanda</button>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

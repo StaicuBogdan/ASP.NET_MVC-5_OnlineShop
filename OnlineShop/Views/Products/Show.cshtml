@@ -1,0 +1,160 @@
+﻿@model Proiect2.Models.Product
+<br />
+<a class="btn btn-info" href="/Products/Index"><i class="fa fa-arrow-left"></i>  Inapoi la lista de produse</a>
+<br /><br />
+      <div class="panel panel-default">
+          <div class="panel-body">
+              <h4 class="text-center text-primary">@Model.Nume</h4>
+              <hr />
+              <div class="row">
+                  <div class="col-md-4">
+                      <img class="img-responsive" src="@Model.Poza" alt="poza produsului" />
+                      <br />
+                      Rating:&ensp;
+                      @if (Model.Rating!=0)
+                      {
+                          var j = 0;
+                          for (var i = 1; i <= Model.Rating; i++)
+                          {
+                              <i class="fa fa-star" style="color:gold;"></i>
+                              j++;
+                          }
+                          if (Model.Rating - j != 0)
+                          {
+                              <i class="fa fa-star-half-full" style="color:gold;"></i>
+                          }
+                          for (var i = 5 - Model.Rating; i >= 1; i--)
+                          {
+                              <i class="fa fa-star-o" style="color:gold;"></i>
+                          }
+                      }
+                      else
+                      {
+                          <p>Fii primul care lasa un review!</p>
+                      }
+
+                  </div>
+                  <div class="col-md-8">
+                      <strong>Descriere produs</strong>
+                      <br />
+                      <p style="overflow:auto;">@Model.Descriere</p>
+                  </div>
+              </div>
+              <br />
+              <i class="glyphicon glyphicon-user"></i><i>produs vandut de </i> <strong>@Model.User.UserName</strong>
+          </div>
+
+          <div class="panel-footer">
+              <div class="row">
+                  <div class="col-md-5">
+                      @if (Model.UserId == ViewBag.UtilizatorCurent || ViewBag.esteAdmin)
+                      {
+                            <a class="btn btn-warning" href="/Products/Edit/@Model.Id"><i class="fa fa-edit"></i> Modifica produs</a>
+                      }
+                  </div>
+                  <div class="col-md-3" style="display:flex;">
+                      <h4>
+                          <i class="fa fa-dollar"> @Model.Pret&ensp;&ensp;</i>
+                      </h4>
+                      <form method="post" action="/Quantities/New">
+                          <input type="hidden" name="Id" value="@Model.Id" />
+                          <input type="hidden" name="Cantitate" value="1" />
+                          <button type="submit" class="btn btn-success">
+                              <i class="fa fa-shopping-bag">&ensp;Adauga in cos</i>
+                          </button>
+                      </form>
+                      
+                  </div>
+                  <div class="col-md-4">
+                      @if (Model.UserId == ViewBag.UtilizatorCurent || ViewBag.esteAdmin)
+                      {
+                          using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = @Model.Id }))
+                          {
+                              @Html.HttpMethodOverride(HttpVerbs.Delete)
+                              <button class="btn btn-danger pull-right" type="submit"><i class="fa fa-trash"></i> Sterge produs</button>
+                          }
+                      }
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form method="post" action="/Products/NewReview">
+                    <input type="hidden" name="ProductId" value="@Model.Id" />
+                    <label for="rating-1">
+                        <input id="rating-1" class="form-check-input" type="radio" name="Rating" value="1">&ensp;1&ensp;
+                    </label>
+                    <label for="rating-2">
+                        <input id="rating-2" class="form-check-input" type="radio" name="Rating" value="2">&ensp;2&ensp;
+                    </label>
+                    <label for="rating-3">
+                        <input id="rating-3" class="form-check-input" type="radio" name="Rating" value="3">&ensp;3&ensp;
+                    </label>
+                    <label for="rating-4">
+                        <input id="rating-4" class="form-check-input" type="radio" name="Rating" value="4">&ensp;4&ensp;
+                    </label>
+                    <label for="rating-5">
+                        <input id="rating-5" class="form-check-input" type="radio" name="Rating" value="5" checked>&ensp;5&ensp;
+                    </label>
+                    @Html.ValidationMessage("Rating", "", new { @class = "text-danger" })
+                    <br />
+                    <label>
+                        Continut review
+                    </label>
+                    <textarea class="form-control" name="Content" style="box-sizing: border-box; max-width: 100%; min-height:150px;"></textarea>
+                    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+                    <h5 class="text-danger">@ViewBag.Message</h5>
+                    <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Adauga review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+@foreach (var rev in Model.Reviews)
+{
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7" style="border-bottom:1px solid black">
+            <br />
+            <div>
+                <strong>@rev.User.UserName</strong><br />
+                <strong>Rating: </strong>@rev.Rating din 5
+                @for (var i = 1; i <= rev.Rating; i++)
+                {
+                    <i class="fa fa-star" style="color:gold;"></i>
+                }
+            </div>
+
+            <div>
+                <p>@rev.Content</p>
+                <small class="pull-right">@rev.Date</small>
+            </div>
+
+            @if (rev.UserId == ViewBag.UtilizatorCurent || ViewBag.esteAdmin)
+            {
+                <div style="display: inline-block; float : left; margin-right: 15px">
+                    <a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a>
+                </div>
+                <div style="display: inline-block; float : left">
+                    <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                    </form>
+                </div>
+            }
+            <br />
+            <br />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+}

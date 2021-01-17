@@ -1,0 +1,68 @@
+﻿
+<div class="row">
+    <div class=" col-md-6">
+        <h3><strong>Lista Useri</strong></h3>
+        @foreach (var user in ViewBag.UsersList)
+        {
+            <div class="panel-heading">Nume utilizator: @user.UserName</div>
+
+            <div class="panel-body">
+
+                <i class="glyphicon glyphicon-envelope"></i> Email utilizator: <span class="label label-default">@user.Email</span>
+
+                <br /><br />
+
+                @if (@user.PhoneNumber != null)
+                {
+                    <i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@user.PhoneNumber</span>
+                }
+
+            </div>
+
+            <div class="panel-footer">
+
+                <a class="btn btn-sm btn-success" href="/Users/Edit/@user.Id"> Editare utilizator</a>
+                <a class="btn btn-sm btn-success" href="/Users/Show/@user.Id"> Vizualizare utilizator</a>
+
+            </div>
+
+            <br /><br />
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h3><strong>Produse in curs de acceptare</strong></h3>
+        @foreach (var produs in ViewBag.ProduseNeacceptate)
+        {
+            <div class="panel-heading"><strong>Nume produs: @produs.Nume</strong></div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img class="img-responsive" src="@produs.Poza" alt="poza produsului" />
+                    </div>
+                    <div class="col-md-7">
+                        <p style="height:120px; overflow:hidden;">@produs.Descriere</p>
+                    </div>
+                </div>
+                <p>Produs vandut de: <strong>@produs.User.UserName</strong></p>
+            </div>
+
+            <div class="panel-footer">
+                <div class=" pull-left">
+                    <form action="/Users/AcceptaProdus/@produs.Id">
+                        <button class="glyphicon glyphicon-ok" style="border: none; background: transparent" type="submit"></button>
+                    </form>
+                </div>
+
+                <div class="pull-right">
+                    <form method="post" action="/Users/StergeProdus/@produs.Id">
+                        <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                    </form>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>

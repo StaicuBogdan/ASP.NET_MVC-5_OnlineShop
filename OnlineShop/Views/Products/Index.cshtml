@@ -1,0 +1,143 @@
+﻿<div class="container-fluid">
+    <div>
+        <a href="/Products/Show/7"><img style="margin:auto; width:100%;" class="img-responsive" src="https://s13emagst.akamaized.net/layout/ro/images/db//48/72673.jpg" /></a>
+    </div>
+
+    <div class="row" style="margin:5px 0 5px 0;">
+        <div class="col-md-4">
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sorteaza dupa
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/Products/SortareProduse/1">Pret Crescator</a></li>
+                    <li><a class="dropdown-item" href="/Products/SortareProduse/2">Pret Desrescator</a></li>
+                    <li><a class="dropdown-item" href="/Products/SortareProduse/3">Rating Crescator</a></li>
+                    <li><a class="dropdown-item" href="/Products/SortareProduse/4">Rating Desrescator</a></li>
+                    <li><a class="dropdown-item" href="/Products/SortareProduse/5">Cele mai noi</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form class="card card-sm" method="GET">
+                <input class="form-control form-control-lg form-controlborderless pull-left" type="text" name="search" value="@ViewBag.SearchString" placeholder="Search topics or keywords">
+                <button class="btn btn-success pull-right" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 10px;">
+        @foreach (Proiect2.Models.Product product in ViewBag.Products)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="/Products/Show/@product.Id">
+                        <img class="img-responsive" src="@product.Poza" alt="poza produsului" style="height:200px; margin:auto;" />
+                    </a>
+                    <a href="/Products/Show/@product.Id">
+                        <h3 class="text-center text-primary">@product.Nume</h3>
+                    </a>
+                    <hr />
+                    Rating:&ensp;
+                    @if (!float.IsNaN(product.Rating))
+                    {
+                        var j = 0;
+                        for (var i = 1; i <= product.Rating; i++)
+                        {
+                            <i class="fa fa-star" style="color:gold;"></i>
+                            j++;
+                        }
+                        if (product.Rating - j != 0)
+                        {
+                            <i class="fa fa-star-half-full" style="color:gold;"></i>
+                        }
+                        for (var i = 5 - product.Rating; i >= 1; i--)
+                        {
+                            <i class="fa fa-star-o" style="color:gold;"></i>
+                        }
+                    }
+                    else
+                    {
+                        <a href="/Products/Show/@product.Id">Fii primul care lasa un review!</a>
+                    }
+                    <br />
+                    <strong>Descriere produs:</strong>
+                    <br />
+                    <p style="height:45px; overflow:hidden;">@product.Descriere</p>
+                    <p>Produs vandut de: <strong>@product.User.UserName</strong></p>
+                </div>
+                <div class="panel-footer" style="display:block">
+                    <h4 class="pull-left">
+                        <i class="fa fa-dollar pull-left"> @product.Pret</i>
+                    </h4>
+                    <div class="pull-right">
+                        <form method="post" action="/Quantities/New">
+                            <input type="hidden" name="Id" value="@product.Id" />
+                            <input type="hidden" name="Cantitate" value="1" />
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-shopping-bag">&ensp;Adauga in cos</i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        }
+    </div>
+    
+
+    <div class="text-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    @if (ViewBag.search != "")
+                    {
+                        <a href="/Products/Index?page=1&search=@ViewBag.SearchString"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Products/Index?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    }
+                </li>
+                @for (int i = 1; i <= ViewBag.lastPage; i++)
+                {
+                    if (ViewBag.search != "")
+                    {
+                        <li>
+                            <a href="/Products/Index?page=@i&search=@ViewBag.SearchString">@(i)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="/Products/Index?page=@i">@(i)</a></li>
+                    }
+                }
+                <li>
+                    @if (ViewBag.search != "")
+                    {
+                        <a href="/Products/Index?page=@(ViewBag.lastPage)&search=@ViewBag.SearchString" arialabel="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Products/Index?page=@(ViewBag.lastPage)" arialabel="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    }
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
