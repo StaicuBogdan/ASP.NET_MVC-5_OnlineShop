@@ -1,4 +1,4 @@
-Platforma Online shop cu urmatoarele functionalitati:
+#Platforma Online shop cu urmatoarele functionalitati:
 
 -Exista 4 tipuri de utilizatori: utilizator neinregistrat, inregistrat, colaborator, administrator.
 
