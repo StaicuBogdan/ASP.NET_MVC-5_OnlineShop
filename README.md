@@ -1,6 +1,8 @@
 ## Platforma Online shop cu urmatoarele functionalitati:
+<ul>
+  <li>Exista 4 tipuri de utilizatori: utilizator neinregistrat, inregistrat, colaborator, administrator.</li>
+</ul>
 
--Exista 4 tipuri de utilizatori: utilizator neinregistrat, inregistrat, colaborator, administrator.
 
 -Utilizatorul colaborator poate adauga produse in magazin. Acesta va trimite cereri de adaugare administratorului, iar acesta le poate respinge sau aproba. Dupa aprobare produsele vor putea fi vizualizate in magazin
 
