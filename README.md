@@ -11,3 +11,8 @@
   <li>Produsele pot fi cautate dupa denumire prin intermediul unui motor de cautare si pot fi sortate crescator, respectiv descrescator in functie de pret si numarul de stele.</li>
   <li>Administratorul poate sterge si edita atat produse, cat si comentarii. Acesta poate, de asemenea, sa activeze sau sa revoce drepturile utilizatorilor.</li>
 </ul>
+
+<br>
+<img src="https://i.imgur.com/tyXwKZQ.png">
+<br><hr>
+<img src="https://i.imgur.com/0zqCIaH.png">
