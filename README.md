@@ -13,6 +13,7 @@
 </ul>
 
 <br>
+Looks something like this:
 <img src="https://i.imgur.com/tyXwKZQ.png">
-<br><hr>
+<hr>
 <img src="https://i.imgur.com/0zqCIaH.png">
